@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="optionBtn">
+        <button id="btnRedmin"> redmine </imputation>
+        <button id='btnImputation'> Imputation du mois</imputation>
+    </div>
+
+    <div class="form_imputation hidden">
+        <div class="field">
+            <label for="">ID Demande</label>
+            <input type="text" name="issue_id" id="issue_id">
+        </div>
+        
+        <div class="field">
+            <label for="">Heures</label>
+            <input type="text" name="time_entry_hours" id="time_entry_hours">
+        </div>   
+        
+        <div class="field">
+            <select name="time_entry_activity_id" id="time_entry_activity_id"><option value="">--- Choisir ---</option>
+                <option value="10">Avant-vente</option>
+                <option value="8">Conception</option>
+                <option value="9">Développement</option>
+                <option value="11">Corrections</option>
+                <option value="12">Autre</option>
+            </select>
+        </div>
+        <span>Calendrier  du mois </span>
+        <button id="btnAdd"> Ajouter </imputation>
+    </div>
+
+    
+
+</body>
+<script src="popup.js"></script>
+</html>

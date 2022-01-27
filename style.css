@@ -1,0 +1,55 @@
+body{
+  background-color: rgba(0,0,0, .5)
+}
+
+
+.form_imputation{
+
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.field{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  padding-bottom: 15px;
+}
+
+
+input, select {
+  border: none;
+  height: 30px;
+}
+
+
+button {
+    height: 20px;
+    width: 130px;
+    outline: none;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  button.current {
+    box-shadow: 0 0 0 2px white,
+                0 0 0 4px black;
+  }
+
+  button:hover{
+    background-color: rgba(85, 187, 255, 0.726);
+  }
+
+
+  .hidden{
+   display: none;
+   opacity: 0;
+   transition: opacity 0.5s ease-in-out;
+  }
+
+  .visible{
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    display: block;
+  }
