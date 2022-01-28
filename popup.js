@@ -1,48 +1,45 @@
 // Initialize button with user's preferred color
 
-const imputationAction = document.getElementById('btnImputation');
-const addAction = document.getElementById('btnAdd');
-const btnOption =  document.getElementsByClassName('optionBtn')[0]
-const redminForm = document.getElementsByClassName('form_imputation')[0]
-
+// new Datepicker('#multi', {
+//                 multiple: true,
+//                 inline: true,
+//             });
+const form = document.getElementById("form");
+console.log(form);
 const showElement = (element) => {
-    element.classList.remove('hidden')
-    element.classList.add('visible')
-}
+  element.classList.remove("hidden");
+  element.classList.add("visible");
+};
 
 const hiddenElement = (element) => {
-    element.classList.remove('visible')
-    element.classList.add('hidden')
-}
+  element.classList.remove("visible");
+  element.classList.add("hidden");
+};
 
-imputationAction.addEventListener(('click'),  async () => {
-    hiddenElement(btnOption)
-    showElement(redminForm)
-})
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  console.log("submit");
+  const formData = new FormData(form);
+  var myHeaders = new Headers();
+  myHeaders.append("X-Redmine-API-Key", formData.get("apiKey"));
+  myHeaders.append("Access-Control-Allow-Origin", "*");
+  formData.delete("apiKey");
+  const dates = formData.get("dates").split(",");
+  formData.delete("dates");
+  dates.forEach((date) => {
+    formData.append("time_entry[spent_on]", date.replace(/\//g, "-"));
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: formData,
+      redirect: "follow",
+    };
 
-addAction.addEventListener(('click'),  async () => {
-
-    // let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  
-    // chrome.scripting.executeScript({
-    //   target: { tabId: tab.id },
-    //   function: setPageBackgroundColor,
-    // });
-
-
-    /*
-
-    cle api : 5662c2b0a8835fa9eb1c11cd19df96d92b5ba9be
-        utf8: ✓
-    authenticity_token: dlZ9QfsURwR3omey0b6PmVvZddZKV1fjNqr531BO+6uKZbrPNjgZK7salFVbxm4HlCCe30sNWJF3PG7vCDGebA==
-    issue_id: 141802
-    time_entry[issue_id]: 141802
-    time_entry[spent_on]: 2022-01-27
-    time_entry[hours]: 8
-    time_entry[activity_id]: 9
-    */
-    hiddenElement(redminForm)
-    showElement(btnOption)
-})
+    fetch("https://redmine.niji.fr/time_entries.json", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(date, result))
+      .catch((error) => console.error(date, error));
+  });
+});
 
 

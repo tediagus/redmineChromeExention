@@ -1,7 +1,12 @@
 body{
-  background-color: rgba(0,0,0, .5)
+  /* background-color: rgba(0,0,0, .5); */
+  min-width: 600px; /* your desired width */
+  max-width: 100%;
 }
-
+.container{
+  margin-top: 0.5rem;
+}
+/* 
 
 .form_imputation{
 
@@ -52,4 +57,4 @@ button {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     display: block;
-  }
+  } */
