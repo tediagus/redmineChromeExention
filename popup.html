@@ -1,44 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="style.css">
+        
+        <script src="ressources/datepicker.js"></script> 
+        <link rel="stylesheet" href="ressources/pico.min.css"> 
+        <link rel="stylesheet" href="ressources/datepicker.material.css">
+
+        <!-- <script src="ressources/datepicker.js"></script> -->
 </head>
 <body>
-    <div class="optionBtn">
-        <button id="btnRedmin"> redmine </imputation>
-        <button id='btnImputation'> Imputation du mois</imputation>
-    </div>
+    <div class="container">
+    <form id="form">
+                <label>
+                    Redmine apiKey <small><a href="https://redmine.niji.fr/my/account">A droite dans la section MonCompte</a></small>
+                    <input type="text" name="apiKey" placeholder="id" required>
+                </label>
 
-    <div class="form_imputation hidden">
-        <div class="field">
-            <label for="">ID Demande</label>
-            <input type="text" name="issue_id" id="issue_id">
-        </div>
-        
-        <div class="field">
-            <label for="">Heures</label>
-            <input type="text" name="time_entry_hours" id="time_entry_hours">
-        </div>   
-        
-        <div class="field">
-            <select name="time_entry_activity_id" id="time_entry_activity_id"><option value="">--- Choisir ---</option>
-                <option value="10">Avant-vente</option>
-                <option value="8">Conception</option>
-                <option value="9">Développement</option>
-                <option value="11">Corrections</option>
-                <option value="12">Autre</option>
-            </select>
-        </div>
-        <span>Calendrier  du mois </span>
-        <button id="btnAdd"> Ajouter </imputation>
-    </div>
 
-    
+                <label>
+                    Tache Id
+                    <input type="text" name="time_entry[issue_id]" placeholder="10" required>
+                </label>
+
+                <label>
+                    Heure
+                    <input type="text" name="time_entry[hours]" placeholder="8" required value="8">
+                </label>
+
+
+                <label>
+                    Activité Id
+                    <select name="time_entry[activity_id]" required value="9"><option value="">--- Choisir ---</option>
+                        <option value="10">Avant-vente</option>
+                        <option value="8">Conception</option>
+                        <option value="9" selected>Développement</option>
+                        <option value="11">Corrections</option>
+                        <option value="12">Autre</option>
+                    </select>
+                </label>
+
+                <label>
+                    Dates 
+                <input type="text" name="dates" id="multi" placeholder="2020-12-24,2020-12-25"/>
+                </label>
+
+                <input type="submit" value="Submit"/>
+            </form>
+            
+
+    </div>
 
 </body>
 <script src="popup.js"></script>
+
 </html>
