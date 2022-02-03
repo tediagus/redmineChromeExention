@@ -1,6 +1,6 @@
 body{
   /* background-color: rgba(0,0,0, .5); */
-  min-width: 600px; /* your desired width */
+  min-width: 350px; /* your desired width */
   max-width: 100%;
 }
 .container{
