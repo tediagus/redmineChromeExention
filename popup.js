@@ -15,13 +15,18 @@ const hiddenElement = (element) => {
   element.classList.remove("visible");
   element.classList.add("hidden");
 };
+async function getApiKey() {
+  const text = await fetch("https://redmine.niji.fr/my/api_key").then((a)=> a.text())
+  return text.match(/<pre>(.+)<\/pre>/)[1]
+}
 
-form.addEventListener("submit", function (e) {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  console.log("submit");
   const formData = new FormData(form);
   var myHeaders = new Headers();
-  myHeaders.append("X-Redmine-API-Key", formData.get("apiKey"));
+  const apiKey = await getApiKey()
+  console.log("submit", apiKey);
+  myHeaders.append("X-Redmine-API-Key", apiKey);
   myHeaders.append("Access-Control-Allow-Origin", "*");
   formData.delete("apiKey");
   const dates = formData.get("dates").split(",");
