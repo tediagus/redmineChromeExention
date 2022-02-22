@@ -5,7 +5,7 @@
 //                 inline: true,
 //             });
 const form = document.getElementById("form");
-console.log(form);
+const selectDates = document.getElementById("selectDates");
 const showElement = (element) => {
   element.classList.remove("hidden");
   element.classList.add("visible");
@@ -20,6 +20,26 @@ async function getApiKey() {
   return text.match(/<pre>(.+)<\/pre>/)[1]
 }
 
+
+function generateOptionsForMonth(date = new Date()){
+  const numberOfDays = new Date(date.getFullYear(), date.getMonth()+1 , 0).getDate();
+  for(let i=1; i<=numberOfDays; i++){
+    const dateDay = new Date(date.getFullYear(), date.getMonth() , i+1)
+    
+    const option = document.createElement("option");
+    option.value = dateDay.toISOString().substring(0,10);
+    option.innerText = dateDay.toLocaleString("fr-FR",{dateStyle:"full",timeZone: 'UTC' });
+    option.disabled = (dateDay.getDay() === 0 || dateDay.getDay() === 1)
+
+    selectDates.appendChild(option);
+  }
+}
+generateOptionsForMonth();
+
+
+
+
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const formData = new FormData(form);
@@ -29,10 +49,11 @@ form.addEventListener("submit", async (e) => {
   myHeaders.append("X-Redmine-API-Key", apiKey);
   myHeaders.append("Access-Control-Allow-Origin", "*");
   formData.delete("apiKey");
-  const dates = formData.get("dates").split(",");
+  const dates = formData.getAll('dates');
+  console.log(dates);
   formData.delete("dates");
   dates.forEach((date) => {
-    formData.append("time_entry[spent_on]", date.replace(/\//g, "-"));
+    formData.append("time_entry[spent_on]", date);
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
