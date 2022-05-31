@@ -7,18 +7,27 @@
         <title>Document</title>
         <link rel="stylesheet" href="style.css">
         
-        <script src="ressources/datepicker.js"></script> 
         <link rel="stylesheet" href="ressources/pico.min.css"> 
-        <link rel="stylesheet" href="ressources/datepicker.material.css">
+        <!-- <link rel="stylesheet" href="ressources/datepicker.material.css"> -->
 
         <!-- <script src="ressources/datepicker.js"></script> -->
 </head>
 <body>
+
     <div class="container">
-    <form id="form">
+        <div id="loading">
+            <progress id="progress" max="100" value="0"></progress>
+            Saisie en cours...
+        </div>
+        <div id="finish">
+            <progress max="100" value="100"></progress>
+            Saisie finie ! Recharger la page pour voir les saises
+        </div>
+        <form id="form">
                 <label>
                     Tache Id
-                    <input type="text" name="time_entry[issue_id]" placeholder="10" required>
+                    <select name="time_entry[issue_id]" id="selectTask" required><option value="">--- Choisir ---</option>
+                    </select>
                 </label>
 
                 <label>
@@ -50,9 +59,7 @@
                 </label>
 
                 <input type="submit" value="Submit"/>
-            </form>
-            
-
+        </form>   
     </div>
 
 </body>
