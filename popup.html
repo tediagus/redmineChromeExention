@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="style.css">
-        
-        <link rel="stylesheet" href="ressources/pico.min.css"> 
-        <!-- <link rel="stylesheet" href="ressources/datepicker.material.css"> -->
 
-        <!-- <script src="ressources/datepicker.js"></script> -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="ressources/pico.min.css">
+    <!--<link rel="stylesheet" href="ressources/datepicker.material.css">
+
+    <script src="ressources/datepicker.js"></script>-->
 </head>
+
 <body>
 
     <div class="container">
@@ -24,42 +26,44 @@
             Saisie finie ! Recharger la page pour voir les saises
         </div>
         <form id="form">
-                <label>
-                    Tache Id
-                    <select name="time_entry[issue_id]" id="selectTask" required><option value="">--- Choisir ---</option>
-                    </select>
-                </label>
+            <label>
+                Tache Id
+                <select name="time_entry[issue_id]" id="selectTask" required>
+                    <option value="">--- Choisir ---</option>
+                </select>
+            </label>
 
-                <label>
-                    Heure
-                    <input type="text" name="time_entry[hours]" placeholder="8" required value="8">
-                </label>
+            <label>
+                Heure
+                <input type="text" name="time_entry[hours]" placeholder="8" required value="8">
+            </label>
 
 
-                <label>
-                    Activité Id
-                    <select name="time_entry[activity_id]" required value="9"><option value="">--- Choisir ---</option>
-                        <option value="10">Avant-vente</option>
-                        <option value="8">Conception</option>
-                        <option value="9" selected>Développement</option>
-                        <option value="11">Corrections</option>
-                        <option value="12">Autre</option>
-                    </select>
-                </label>
+            <label>
+                Activité Id
+                <select name="time_entry[activity_id]" required value="9">
+                    <option value="">--- Choisir ---</option>
+                    <option value="10">Avant-vente</option>
+                    <option value="8">Conception</option>
+                    <option value="9" selected>Développement</option>
+                    <option value="11">Corrections</option>
+                    <option value="12">Autre</option>
+                </select>
+            </label>
 
-                <!-- <label>
+            <!-- <label>
                     Dates 
                 <input type="text" name="dates" id="multi" placeholder="2020-12-24,2020-12-25"/>
                 </label> -->
-                <label>
-                    Dates
-                    <select id="selectDates" name="dates" multiple>
+            <label>
+                Dates
+                <select id="selectDates" name="dates" multiple>
 
-                    </select>
-                </label>
+                </select>
+            </label>
 
-                <input type="submit" value="Submit"/>
-        </form>   
+            <input type="submit" value="Submit" />
+        </form>
     </div>
 
 </body>
