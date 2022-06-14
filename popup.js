@@ -1,9 +1,3 @@
-// Initialize button with user's preferred color
-
-// new Datepicker('#multi', {
-//                 multiple: true,
-//                 inline: true,
-//             });
 const loading = document.getElementById("loading");
 const finish = document.getElementById("finish");
 const form = document.getElementById("form");
@@ -27,6 +21,7 @@ const STEP = {
   LOADING: 1,
   FINISH: 2
 }
+
 function changeStep(step){
   
   switch(step){
@@ -41,9 +36,21 @@ function changeStep(step){
       hiddenElement(finish)
       break;
     case STEP.FINISH:
-      hiddenElement(form)
+
+    getCurrentTab().then((tab)=>{
+      
+      //redirect to time past 
+      const url = gotoRedmine()+'/projects/loreal-dsf-loreal-2022-nf2101863/time_entries?utf8=%E2%9C%93&set_filter=1&sort=spent_on%3Adesc&f%5B%5D=spent_on&op%5Bspent_on%5D=m&f%5B%5D=user_id&op%5Buser_id%5D=%3D&v%5Buser_id%5D%5B%5D=me&f%5B%5D=&c%5B%5D=spent_on&c%5B%5D=user&c%5B%5D=activity&c%5B%5D=issue&c%5B%5D=comments&c%5B%5D=hours&group_by=&t%5B%5D=hours&t%5B%5D='
+
+      if(tab && tab.id){
+        chrome.tabs.update(tab.id, {url: url});
+      } else {
+        chrome.tabs.create({url:url});
+      }
+    })
+   /*    hiddenElement(form)
       hiddenElement(loading)
-      showElement(finish)
+      showElement(finish) */
       break;
   }
 
@@ -56,7 +63,7 @@ async function getApiKey() {
   if(!API_KEY) {
     try{
       const text = await fetch("https://redmine.niji.fr/my/api_key").then((a)=> a.text())
-      console.log(text)
+      //console.log(text)
       API_KEY = text.match(/<pre>(.+)<\/pre>/)[1];
 
     }catch(e){
@@ -120,12 +127,17 @@ async function generateListTask(apiKey, date = new Date()){
   }
 }
 
+
+function gotoRedmine(){
+  return 'https://redmine.niji.fr/'
+}
+
+
 async function launch(){
 
   const apiKey = await getApiKey()
   if(!apiKey) {
-    alert("Veuillez vous connecter à votre compte Redmine")
-    return
+    chrome.tabs.create({url: gotoRedmine()});
   }
   await generateListTask(apiKey)
 }
@@ -141,12 +153,12 @@ form.addEventListener("submit", async (e) => {
   changeStep(STEP.LOADING);
   var myHeaders = new Headers();
   const apiKey = await getApiKey()
-  console.log("submit", apiKey);
+ // console.log("submit", apiKey);
   myHeaders.append("X-Redmine-API-Key", apiKey);
   myHeaders.append("Access-Control-Allow-Origin", "*");
   formData.delete("apiKey");
   const dates = formData.getAll('dates');
-  console.log(dates);
+  //console.log(dates);
   formData.delete("dates");
   await Promise.allSettled(dates.map(async (date) => {
     formData.append("time_entry[spent_on]", date);
@@ -160,11 +172,21 @@ form.addEventListener("submit", async (e) => {
     await fetch("https://redmine.niji.fr/time_entries.json", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(date, result))
-      .catch((error) => console.error(date, error));
-  }));
+      .catch((error) => console.error(date, error));  
+  }));  
 
   changeStep(STEP.FINISH);
+
+
+
 
 });
 
 
+
+async function getCurrentTab() {
+  let queryOptions = { active: true, lastFocusedWindow: true };
+  // `tab` will either be a `tabs.Tab` instance or `undefined`.
+  let [tab] = await chrome.tabs.query(queryOptions);
+  return tab;
+}
