@@ -173,7 +173,7 @@ form.addEventListener("submit", async (e) => {
     await fetch("https://redmine.niji.fr/time_entries.json", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        projectID = result.time_entry.project.name.toLowerCase().replace(/ /g, "-");
+        projectID = result.time_entry.project.id;
         console.log(date, result)
       })
       .catch((error) => console.error(date, error));
